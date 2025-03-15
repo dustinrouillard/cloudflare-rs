@@ -158,6 +158,15 @@ pub struct Meta {
     pub auto_added: bool,
 }
 
+/// SRV record specific data
+#[derive(Deserialize, Serialize, Clone, Debug)]
+pub struct SrvData {
+    pub port: u16,
+    pub priority: u16,
+    pub weight: u16,
+    pub target: String,
+}
+
 /// Type of the DNS record, along with the associated value.
 /// When we add support for other types (LOC/SRV/...), the `meta` field should also probably be encoded
 /// here as an associated, strongly typed value.
@@ -171,7 +180,7 @@ pub enum DnsContent {
     NS { content: String },
     MX { content: String, priority: u16 },
     TXT { content: String },
-    SRV { content: String },
+    SRV { data: SrvData },
 }
 
 #[derive(Deserialize, Debug)]
